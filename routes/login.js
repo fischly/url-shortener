@@ -6,8 +6,8 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('./database/db');
-const getSaltByUsername = require('./util/getSaltByUsername').getSaltByUsername;
-const hashPassword = require('./util/hashPassword');
+const getSaltByUsername = require('../util/getSaltByUsername').getSaltByUsername;
+const hashPassword = require('../util/hashPassword').hashPassword;
 
 
 router.post('/:username/:pass', (req, res) => {
