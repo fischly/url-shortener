@@ -1,0 +1,9 @@
+{
+    "database": {
+        "filename": "./database/database.sqlite3"
+    },
+
+    "server": {
+        "port": 42421
+    }
+}
