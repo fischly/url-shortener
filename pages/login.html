@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fischly's URL Shortener - Login</title>
+</head>
+<body>
+    <label for="input-username">Username:</label>
+    <input id="input-username" type="text">
+
+    <label for="input-password">Password:</label>
+    <input id="input-password" type="password">
+
+    <input id="button-login" type="button" value="login">
+
+
+    <script>
+        document.querySelector('#button-login').onclick = function(ev) {
+            const username = document.querySelector('#input-username').value;
+            const password = document.querySelector('#input-password').value;
+
+            console.log('username: ', username, 'password:', password);
+
+            fetch(`../../login/${username}/${password}`, { method: 'POST' })
+            .then(resp => {
+                console.log('resp: ', resp);
+
+                if (resp.status !== 200) {
+                    console.log('wrong credentials');
+                    alert('wrong credentials');
+                    return;
+                } else {
+                    return resp.text();
+                }
+            }).then(token => {
+                if (token) {
+                    console.log('token: ', token);
+                    localStorage.token = token;              
+
+                    alert('successfully logged in');
+
+                    location.href = 'add.html';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

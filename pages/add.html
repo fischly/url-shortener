@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fischly's URL Shortener - Add</title>
+</head>
+<body>
+    
+    <label for="input-short">shrt.fischly.dev/</label>
+    <input id="input-short" type="text">
+
+    <label for="input-url">URL:</label>
+    <input id="input-url" type="text">
+
+    <input id="button-add" type="button" value="add">
+
+    <script>
+         document.querySelector('#button-add').onclick = function(ev) {
+            const short = document.querySelector('#input-short').value;
+            const url = document.querySelector('#input-url').value;
+
+            console.log('short: ', short, 'url:', url);
+
+            fetch('../../add', { 
+                method: 'POST',
+                headers: {
+                    'Authorization': localStorage.token, 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ short: short, long: url })
+            })
+            .then(resp => {
+                console.log('resp: ', resp);
+
+                if (resp.status !== 200) {
+                    console.log('error', resp);
+                }
+                return resp.text();
+            }).then(message => {
+                if (message) {
+                    console.log('message: ', message);            
+
+                    alert(message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
