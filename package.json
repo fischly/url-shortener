@@ -1,0 +1,11 @@
+{
+  "name": "url-shortener",
+  "version": "0.0.1",
+  "description": "A little URL shortener with simple login system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fischly",
+  "license": "ISC"
+}
