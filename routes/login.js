@@ -1,17 +1,17 @@
 const { Router } = require('express');
-const config = require('./config.json');
+const config = require('../config.json');
 
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
-const db = require('./database/db');
+const getDb = require('../database/db').getDb;
 const getSaltByUsername = require('../util/getSaltByUsername').getSaltByUsername;
 const hashPassword = require('../util/hashPassword').hashPassword;
 
 
-router.post('/:username/:pass', (req, res) => {
-    const db = db.getDb();
+router.post('/:username/:password', (req, res) => {
+    const db = getDb();
 
     const username = req.params.username;
     const password = req.params.password;
@@ -20,7 +20,9 @@ router.post('/:username/:pass', (req, res) => {
 
     getSaltByUsername(username).then(
         salt => {
-            const hashedPassword = hashPassword(password, hash);
+            console.log(salt);
+            console.log(password);
+            const hashedPassword = hashPassword(password, salt);
 
             const queryText = 'SELECT * FROM users WHERE username = $1 and password = $2';
             const queryValues = [username, hashedPassword];
@@ -53,3 +55,5 @@ router.post('/:username/:pass', (req, res) => {
     )
 });
 
+
+module.exports = router;

@@ -1,19 +1,20 @@
 
-const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
 const getDb = require('../database/db').getDb;
-const getSaltByUsername = require('../util/getSaltByUsername').getSaltByUsername;
 const isShortUsed = require('../util/isShortUsed').isShortUsed;
 const checkAuthentication = require('../util/checkAuthentication').checkAuthentication;
 
 
-router.post('/:short/:long', (req, res) => {
+router.post('/', (req, res) => {
     const db = getDb();
 
-    const short = req.params.short;
-    const long = req.params.long;
+    const short = req.body.short;
+    const long = req.body.long;
+
+    console.log('short', short);
+    console.log('long', long);
 
     const authorization = req.header('Authorization');
     console.log('authorization: ', authorization);
@@ -52,11 +53,11 @@ function addShortEntry(username, long, short) {
 
                 db.run(queryText, queryValues, (err, row) => {
                     if (err) {
-                        console.error('database error inserting short');
+                        console.error('database error inserting short', err);
                         reject({ error: 'database error inserting short' });
                     }
 
-                    confirm.log('successfully inserted, row: ', row);
+                    console.log('successfully inserted, row: ', row);
                     resolve({ success: 'successfully inserted short "' + short + '" to "' + long + '"' });
                 });
             }, 
@@ -67,3 +68,5 @@ function addShortEntry(username, long, short) {
         )
     });
 }
+
+module.exports = router;
