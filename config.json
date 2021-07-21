@@ -5,5 +5,7 @@
 
     "server": {
         "port": 42421
-    }
+    },
+
+    "jwtSecret": "das ist ein test LOOOL KEKW LUL"
 }
