@@ -29,8 +29,8 @@ router.post('/', (req, res) => {
     console.log('authenticated with:', token);
 
     addShortEntry(token.username, long, short).then(
-        success => res.status(200).json(success),
-        error => res.status(400).json(error)
+        success => res.status(200).send(success.success),
+        error => res.status(400).send(error.error)
     );
 });
 

@@ -3,12 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const getDb = require('../database/db').getDb;
-const isShortUsed = require('../util/isShortUsed').isShortUsed;
-const checkAuthentication = require('../util/checkAuthentication').checkAuthentication;
-
 
 router.get('/:short', (req, res) => {
-    console.log('hiiii');
     const db = getDb();
 
     const short = req.params.short;
