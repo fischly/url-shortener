@@ -18,6 +18,10 @@ const redirectRoute = require('./routes/redirect');
 // add routes
 app.use('/login', loginRoute);
 app.use('/add', addRoute);
+
+app.use('/pages', express.static('pages'));
+
+// main redirect route should be handled at last
 app.use('/', redirectRoute);
 
 
